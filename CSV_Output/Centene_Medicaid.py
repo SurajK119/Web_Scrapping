@@ -77,11 +77,11 @@ for url in urls:
             for link in links:
                 res = link.get("href")
                 if res is not None:
-                    # if res.startswith("/"):
-                    #     res = "https://" + url.split("/")[2] + res
-                    if not res.endswith("redirect.html"):
-                        if res.endswith(".pdf"):
-                            visited_urls.add(res)
+                    if res.startswith("/"):
+                        res = "https://" + url.split("/")[2] + res
+                        if not res.endswith("redirect.html"):
+                            if res.endswith(".pdf"):
+                                visited_urls.add(res)
                                                        
             for link in list(visited_urls):
                 try:
