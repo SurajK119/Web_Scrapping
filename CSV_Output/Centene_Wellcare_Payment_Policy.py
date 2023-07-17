@@ -44,7 +44,7 @@ for url in urls:
             for link in list(visited_urls):
                 try:
                     # Create a list of dictionaries to hold the data
-                    data = {
+                    data = {'state' : [url.split("/")[-4]],
                             'main_url': ["https://www.centene.com/products-and-services/browse-by-state/" + url.split("/")[-4] + ".html"],
                             'sub_url': [url],
                             'downloadable_link': [link],
@@ -56,7 +56,7 @@ for url in urls:
 
                     # Define the CSV file path and column names
                     csv_file_path = "data.csv"
-                    column_names = ['main_url', 'sub_url', 'downloadable_link', 'line_of_business', 'type_of_service', 'document_name', 'download_date']
+                    column_names = ['state' , 'main_url', 'sub_url', 'downloadable_link', 'line_of_business', 'type_of_service', 'document_name', 'download_date']
 
                     # Check if file exists
                     file_exists = os.path.isfile(csv_file_path)

@@ -6,6 +6,39 @@ import pandas as pd
 import csv
 from datetime import date
 
+# Define a dictionary for states
+di = {
+    "www.ambetterofalabama.com" : "Alabama",
+     "ambetter.azcompletehealth.com" : "Arizona",
+     "ambetter.arhealthwellness.com" : "Arkansas",
+     "www.healthnet.com": "NA",
+      "ambetter.sunshinehealth.com" : "NA",
+      "ambetter.pshpgeorgia.com" : "Georgia",
+      "www.ambetterofillinois.com" : "Illinois",
+      "ambetter.mhsindiana.com" : "Indiana",
+      "ambetter.sunflowerhealthplan.com" : "NA",
+      "ambetter.wellcareky.com" : "NA",
+      "ambetter.louisianahealthconnect.com" : "Louisiana",
+      "www.ambettermeridian.com" : "NA",
+      "ambetter.magnoliahealthplan.com" : "NA",
+      "ambetter.homestatehealth.com" : "NA",
+      "ambetter.nebraskatotalcare.com" : "Nebraska",
+      "ambetter.silversummithealthplan.com" : "NA",
+      "ambetter.nhhealthyfamilies.com" : "New Hampshire",
+      "ambetter.wellcarenewjersey.com": "Newjersey",
+      "ambetter.westernskycommunitycare.com" : "NA",
+      "www.fideliscare.org" : "NA",
+      "www.ambetterofnorthcarolina.com" : "North Carolina",
+      "ambetter.buckeyehealthplan.com" : "NA",
+      "www.ambetterofoklahoma.com" : "Oklahoma",
+      "www.healthnetoregon.com" : "Oregon",
+      "ambetter.pahealthwellness.com" : "Pennsylvania",
+      "ambetter.absolutetotalcare.com" : "NA",
+      "www.ambetteroftennessee.com" : "Tennessee",
+      "ambetter.superiorhealthplan.com" : "NA",
+      "ambetter.coordinatedcarehealth.com" : "NA"
+}
+
 # Path of excel or CSV file
 file_path = r"C:\Users\Suraj\Desktop\Centene_BrowsebyState.xlsx"
 
@@ -45,16 +78,19 @@ for url in urls:
                                 visited_urls.add(res)
             for link in list(visited_urls):
                 try:
-                    # Create a list of dictionaries to hold the data
-                    data = {
-                            'main_url': ["https://www.centene.com/products-and-services/browse-by-state/" + url.split("/")[-4] + ".html"],
-                            'sub_url': [url],
-                            'downloadable_link': [link],
-                            'line_of_business': ['Health Insurance Marketplace'],
-                            'type_of_service': ['NA'],
-                            'document_name': [link.split('/')[-1]],
-                            'download_date': [date.today()]
-                        }
+                    for key in di:
+                        if key == url.split("/")[2]:
+                                              
+                            # Create a list of dictionaries to hold the data
+                            data = {
+                                    'main_url': ["https://www.centene.com/products-and-services/browse-by-state/" + url.split("/")[-4] + ".html"],
+                                    'sub_url': [url],
+                                    'downloadable_link': [link],
+                                    'line_of_business': ['Health Insurance Marketplace'],
+                                    'type_of_service': ['NA'],
+                                    'document_name': [link.split('/')[-1]],
+                                    'download_date': [date.today()]
+                                    }
 
                     # Define the CSV file path and column names
                     csv_file_path = "data.csv"
@@ -77,7 +113,7 @@ for url in urls:
 
                     print(f'Data appended to CSV file: {csv_file_path}') 
                 except Exception as e:
-                        print(f'Error downloading {link}: {str(e)}')
+                    print(f'Error downloading {link}: {str(e)}')
                 
     except Exception as e:
         print(f'Error accessing URL {url}: {str(e)}')
